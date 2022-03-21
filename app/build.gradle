@@ -4,16 +4,19 @@ plugins {
 }
 
 android {
-    compileSdk compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "com.vinson.openmindproject"
-        minSdk minSdkVersion
-        targetSdk targetSdkVersion
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -28,6 +31,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '11'
+        useIR = true
+    }
+    packagingOptions {
+        resources {
+            excludes += 'META-INF/*'
+        }
     }
 }
 
@@ -35,9 +44,36 @@ dependencies {
 
     implementation "androidx.core:core-ktx:$coreKtx"
     implementation "androidx.appcompat:appcompat:$appcompat"
-    implementation "com.google.android.material:material:$material"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
     testImplementation "junit:junit:$junit"
-    androidTestImplementation "androidx.test.ext:junit:$junitKtx"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+
+    // For mockk
+    testImplementation "io.mockk:mockk:$mockk"
+    // For Architecture Components unit test
+    testImplementation "androidx.arch.core:core-testing:$coreTest"
+    testImplementation "org.robolectric:robolectric:$robolectric"
+
+    androidTestImplementation "androidx.test:runner:$runner"
+    androidTestImplementation "androidx.test:rules:$rules"
+    testImplementation "androidx.test.ext:junit-ktx:$junitKtx"
+    testImplementation "androidx.test:core-ktx:$coreKtxTest"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTest"
+    debugImplementation "androidx.compose.ui:ui-test-junit4:$compose"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose"
+    // Needed for createComposeRule, but not createAndroidComposeRule:
+    androidTestImplementation "androidx.compose.ui:ui-test-manifest:$compose"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleKtx"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleKtx"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+    implementation "com.google.android.material:material:$material"
+
+    implementation "androidx.paging:paging-compose:1.0.0-alpha14"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+
+    implementation project(':api')
+    implementation project(':base')
+    implementation project(':datamodel')
 }
