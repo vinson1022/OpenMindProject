@@ -19,7 +19,8 @@ import com.vinson.openmindproject.features.home.ui.stateUi
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainPage(
-    state: MainViewModel.HomeState
+    state: MainViewModel.HomeState,
+    action: ((MainViewModel.HomeEvent) -> Unit)
 ) {
     val scrollState = rememberLazyListState()
     val results = state.assets.collectAsLazyPagingItems()
@@ -44,7 +45,9 @@ fun MainPage(
         ) {
             items(results.itemCount) {
                 val asset = results[it] ?: return@items
-                AssetCard(asset) {}
+                AssetCard(asset) {
+                    action(MainViewModel.HomeEvent.OpenDetail(asset))
+                }
             }
             stateUi(results = results, span = span)
         }

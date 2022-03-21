@@ -27,6 +27,7 @@ buildscript {
         coil = '1.4.0'
         accompanist = '0.23.1'
         espresso = '3.4.0'
+        navigation = '2.4.1'
         minSdkVersion = 27
         targetSdkVersion = 32
         compileSdkVersion = 32

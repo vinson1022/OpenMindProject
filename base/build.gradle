@@ -72,7 +72,7 @@ dependencies {
     api "androidx.compose.material:material:$compose"
     api "androidx.compose.ui:ui-tooling-preview:$compose"
     api "androidx.compose.foundation:foundation:$compose"
-    api "com.google.accompanist:accompanist-flowlayout:$accompanist"
+    api "androidx.navigation:navigation-compose:$navigation"
     api "com.google.accompanist:accompanist-systemuicontroller:$accompanist"
     api "com.google.accompanist:accompanist-permissions:$accompanist"
 

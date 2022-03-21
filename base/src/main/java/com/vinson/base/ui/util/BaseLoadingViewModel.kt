@@ -12,7 +12,7 @@ abstract class BaseLoadingViewModel : BaseViewModel() {
         get() = _isLoading
     protected open val scope = viewModelScope
 
-    protected fun sendApi(apiAction: suspend CoroutineScope.() -> Unit) {
+    open fun sendApi(apiAction: suspend CoroutineScope.() -> Unit) {
         scope.launch {
             _isLoading.emit(true)
             apiAction()
