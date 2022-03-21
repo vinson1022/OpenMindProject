@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk compileSdkVersion
 
     defaultConfig {
-        minSdk 27
-        targetSdk 32
+        minSdk minSdkVersion
+        targetSdk targetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -21,20 +21,72 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose
+        kotlinCompilerVersion '1.6.10'
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.dynamicanimation:dynamicanimation:$dynamicanimation"
+
+    testImplementation "junit:junit:$junit"
+
+    implementation "com.google.code.gson:gson:$gson"
+
+    implementation "com.google.android.material:material:$material"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleKtx"
+
+    // For mockk
+    testImplementation  "io.mockk:mockk:$mockk"
+    // For Architecture Components unit test
+    testImplementation "androidx.arch.core:core-testing:$coreTest"
+
+    androidTestImplementation "androidx.test:runner:$runner"
+    androidTestImplementation "androidx.test:rules:$rules"
+    testImplementation "androidx.test.ext:junit-ktx:$junitKtx"
+    testImplementation "androidx.test:core-ktx:$coreKtxTest"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTest"
+    debugImplementation "androidx.compose.ui:ui-test-junit4:$compose"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose"
+    // Needed for createComposeRule, but not createAndroidComposeRule:
+    androidTestImplementation "androidx.compose.ui:ui-test-manifest:$compose"
+
+    // Jetpack Compose Integration
+    api "androidx.compose.ui:ui:$compose"
+    api "androidx.compose.material:material:$compose"
+    api "androidx.compose.ui:ui-tooling-preview:$compose"
+    api "androidx.compose.foundation:foundation:$compose"
+    api "com.google.accompanist:accompanist-flowlayout:$accompanist"
+    api "com.google.accompanist:accompanist-systemuicontroller:$accompanist"
+    api "com.google.accompanist:accompanist-permissions:$accompanist"
+
+    api "io.coil-kt:coil:$coil"
+    api "io.coil-kt:coil-compose:$coil"
+
+    // Material design icons
+    api "androidx.compose.material:material-icons-core:$compose"
+    api "androidx.compose.material:material-icons-extended:$compose"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleKtx"
+    api "androidx.activity:activity-compose:$composeActivity"
+    api "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleKtx"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+    implementation project(path: ':datamodel')
 }
