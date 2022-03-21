@@ -33,6 +33,13 @@ android {
         jvmTarget = '11'
         useIR = true
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose
+        kotlinCompilerVersion '1.6.10'
+    }
     packagingOptions {
         resources {
             excludes += 'META-INF/*'
