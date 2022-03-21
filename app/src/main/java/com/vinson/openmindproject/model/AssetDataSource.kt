@@ -16,7 +16,7 @@ class AssetDataSource {
         override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Asset> {
             return try {
                 val nextPage = params.key ?: 0
-                val response = api.getAssetDetail(offset = nextPage)
+                val response = api.getAssetDetail(offset = nextPage * 20)
 
                 when (val result = response.getResult()) {
                     is Result.Success -> {

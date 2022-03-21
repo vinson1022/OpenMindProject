@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Asset(
     @SerializedName("id") val id: Int,
-    @SerializedName("image_url") val image: String,
-    @SerializedName("name") val name: String,
+    @SerializedName("image_url") val image: String?,
+    @SerializedName("name") val name: String?,
     @SerializedName("asset_contract") val contract: Contract,
     @SerializedName("token_id") val token: String,
 ) : Parcelable

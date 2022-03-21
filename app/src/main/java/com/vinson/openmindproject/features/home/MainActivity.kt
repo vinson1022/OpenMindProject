@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.vinson.base.ui.component.LoadingContent
 import com.vinson.base.ui.theme.BoldTitle
 import com.vinson.base.ui.theme.Text10
+import com.vinson.openmindproject.features.home.page.MainPage
 import com.vinson.openmindproject.model.AssetRepository
 import com.vinson.openmindproject.util.getViewModel
 
@@ -34,6 +38,7 @@ fun MainLayout() {
     val viewModel = activity.getViewModel {
         MainViewModel(AssetRepository.getInstance())
     }
+    val isLoading by viewModel.isLoading.collectAsState()
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(color = Text10, darkIcons = true)
@@ -43,11 +48,7 @@ fun MainLayout() {
             .fillMaxSize()
             .background(Text10)
     ) {
-        Text(
-            "Hello World",
-            modifier = Modifier.fillMaxSize(),
-            style = BoldTitle,
-            textAlign = TextAlign.Center
-        )
+        if (isLoading) LoadingContent()
+        else MainPage(viewModel.state)
     }
 }
