@@ -12,6 +12,14 @@ val Bold = TextStyle(
         fontWeight = FontWeight.Bold
 )
 
+val BigTitle = Base + TextStyle(
+        fontSize = 26.sp,
+        lineHeight = 36.sp,
+        letterSpacing = (-0.62).sp
+)
+
+val BoldBigTitle = BigTitle.merge(Bold)
+
 val Title = Base + TextStyle(
         fontSize = 18.sp,
         lineHeight = 25.sp,

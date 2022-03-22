@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
@@ -15,13 +16,25 @@ val circle by lazy { CircleCropTransformation() }
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun rememberPicturePainter(url: String?) = rememberImagePainter(
-        data = url,
+        data = url ?: "",
         builder = {
             scale(Scale.FIT)
             transformations(rounded)
             placeholder(R.mipmap.ic_picture_default)
             error(R.mipmap.ic_picture_default)
         }
+)
+
+@OptIn(ExperimentalCoilApi::class)
+@Composable
+fun rememberPictureAutoScalePainter(url: String?) = rememberImagePainter(
+    data = url ?: "",
+    builder = {
+        size(OriginalSize)
+        transformations(rounded)
+        placeholder(R.mipmap.ic_picture_default)
+        error(R.mipmap.ic_picture_default)
+    }
 )
 
 @OptIn(ExperimentalCoilApi::class)
