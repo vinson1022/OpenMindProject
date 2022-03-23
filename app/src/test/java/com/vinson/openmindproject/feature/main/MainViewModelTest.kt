@@ -10,6 +10,7 @@ import com.vinson.datamodel.base.Result
 import com.vinson.openmindproject.BaseTest
 import com.vinson.openmindproject.features.home.MainViewModel
 import com.vinson.openmindproject.model.AssetRepository
+import com.vinson.openmindproject.model.EthRepository
 import com.vinson.openmindproject.util.GIVEN
 import com.vinson.openmindproject.util.THEN
 import com.vinson.openmindproject.util.Tag
@@ -50,7 +51,7 @@ class MainViewModelTest : BaseTest() {
         coEvery { AssetRepository.getInstance().getAssetDetail(any(), any()) } returns Result.Success(
             fakeDetail
         )
-        val viewModel = MainViewModel(AssetRepository.getInstance())
+        val viewModel = MainViewModel(AssetRepository.getInstance(), EthRepository.getInstance())
 
         @Tag(WHEN)
         viewModel.handleEvent(MainViewModel.HomeEvent.OpenDetail(fakeAsset))

@@ -21,6 +21,7 @@ import com.vinson.openmindproject.features.home.MainViewModel.HomePageState.*
 import com.vinson.openmindproject.features.home.page.DetailPage
 import com.vinson.openmindproject.features.home.page.MainPage
 import com.vinson.openmindproject.model.AssetRepository
+import com.vinson.openmindproject.model.EthRepository
 import com.vinson.openmindproject.util.getViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ fun MainLayout() {
     val activity = LocalContext.current as AppCompatActivity
 
     val viewModel = activity.getViewModel {
-        MainViewModel(AssetRepository.getInstance())
+        MainViewModel(AssetRepository.getInstance(), EthRepository.getInstance())
     }
     val navController = rememberNavController()
 

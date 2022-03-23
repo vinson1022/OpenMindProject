@@ -6,22 +6,33 @@ import com.vinson.base.ui.util.BaseLoadingViewModel
 import com.vinson.datamodel.asset.Asset
 import com.vinson.datamodel.asset.AssetDetail
 import com.vinson.openmindproject.model.AssetRepository
+import com.vinson.openmindproject.model.EthRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val repository: AssetRepository
+    private val repository: AssetRepository,
+    private val ethRepository: EthRepository
 ): BaseLoadingViewModel() {
 
     val state: HomeState by mutableStateOf(HomeState())
 
     init {
         getAssets()
+        getBalance()
     }
 
     private fun getAssets() {
         state.setupAssets(repository.getAssets().flow)
+    }
+
+    private fun getBalance() {
+        sendApi {
+            ethRepository.getBalance().handleResult {
+                state.setupBalance(it.toString())
+            }
+        }
     }
 
     private fun getAssetDetail(address: String, token: String) {
@@ -57,6 +68,7 @@ class MainViewModel(
             private set
         var assetDetail: AssetDetail? by mutableStateOf(null)
         var pageState: HomePageState by mutableStateOf(HomePageState.Main)
+        var balance: String by mutableStateOf("")
 
         fun setupAssets(flow: Flow<PagingData<Asset>>) {
             assets = flow
@@ -65,6 +77,11 @@ class MainViewModel(
         fun setupDetail(detail: AssetDetail) {
             pageState = HomePageState.Detail
             assetDetail = detail
+        }
+
+        fun setupBalance(value: String) {
+            pageState = HomePageState.Main
+            balance = value
         }
 
         fun exitDetail() {

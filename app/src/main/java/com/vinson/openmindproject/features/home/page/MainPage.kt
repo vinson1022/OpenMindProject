@@ -2,15 +2,16 @@ package com.vinson.openmindproject.features.home.page
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.vinson.base.ui.theme.BoldTitle
 import com.vinson.base.ui.theme.Text10
 import com.vinson.openmindproject.features.home.MainViewModel
 import com.vinson.openmindproject.features.home.ui.AssetCard
@@ -31,6 +32,16 @@ fun MainPage(
             .fillMaxSize()
             .background(Text10)
     ) {
+        Text(
+            text = "Balance : ${state.balance}",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            style = BoldTitle,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
         LazyVerticalGrid(
             state = scrollState,
             cells = GridCells.Fixed(2),

@@ -23,20 +23,20 @@ private fun getHeaderInterceptor(type: ApiType): Interceptor {
     return Interceptor { chain ->
         var request = chain.request()
 
-        val url = request.url()
-        val body = request.body()
+        val url = request.url
+        val body = request.body
 
         request = request.newBuilder().apply {
             url(url)
             when (type) {
                 ApiType.OpenSea -> generateHeader()
             }
-            method(request.method(), body)
+            method(request.method, body)
 
         }.build()
 
 
-        Log.d("OkHttp", request.headers().toString())
+        Log.d("OkHttp", request.headers.toString())
         chain.proceed(request)
     }
 }
@@ -46,5 +46,6 @@ private fun Request.Builder.generateHeader() {
 }
 
 enum class ApiType {
-    OpenSea
+    OpenSea,
+    Eth
 }
